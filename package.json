@@ -3,6 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.4",
+    "ffprobe": "^1.1.0",
+    "ffprobe-static": "^3.0.0",
+    "mongoose": "^5.3.3",
+    "multer": "^1.4.1",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-scripts": "2.0.5"
