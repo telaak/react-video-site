@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const connection = mongoose.createConnection('mongodb://localhost/video', { useNewUrlParser: true })
 const Schema = mongoose.Schema
 
 let VideoSchema = new Schema({
@@ -110,4 +111,4 @@ let VideoSchema = new Schema({
   ]
 })
 
-module.exports = mongoose.model('Video', VideoSchema)
+module.exports = connection.model('Video', VideoSchema)
