@@ -6,22 +6,22 @@ const bcrypt = require('bcrypt')
 
 const UserSchema = new Schema({
   username: { type: String, required: true, unique: true },
-  passwordHash: { type: String, required: true },
+  password: { type: String, required: true },
   videos: [String]
 })
 
 UserSchema.plugin(uniqueValidator)
 
 UserSchema.methods.validPassword = async function (password) {
-  return bcrypt.compare(password, this.passwordHash)
+  return bcrypt.compare(password, this.password)
 }
 
-UserSchema.virtual('password').set(function (value) {
-  this.passwordHash = value
-})
-
-UserSchema.pre('save', async function () {
-  await bcrypt.hash(this.passwordHash, 12)
+UserSchema.pre('save', function (next) {
+  if (!this.isModified('password')) return next()
+  bcrypt.hash(this.password, 12).then(hash => {
+    this.password = hash
+    next()
+  })
 })
 
 const User = connection.model('User', UserSchema)

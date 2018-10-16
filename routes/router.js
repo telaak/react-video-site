@@ -66,7 +66,7 @@ router.route('/videos/:id')
     })
   })
   .delete((req, res) => {
-    if (Object.values(req.user.videos).includes(req.params.id)) {
+    if (Object.values(req.user.videos).includes(req.params.id) || req.user._doc.admin) {
       Video.findById(req.params.id, (err, video) => {
         if (err) {
           res.send(err)
@@ -93,7 +93,7 @@ router.route('/videos/:id')
     }
   })
   .patch((req, res) => {
-    if (Object.values(req.user.videos).includes(req.params.id)) {
+    if (Object.values(req.user.videos).includes(req.params.id) || req.user._doc.admin) {
       Video.updateOne({ '_id': req.params.id }, req.body, (err, raw) => {
         if (err) {
           res.send(err)
@@ -113,7 +113,7 @@ router.all('/logout', function (req, res) {
 
 router.get('/test', (req, res) => {
   if (req.user) {
-    delete req.user._doc.passwordHash
+    delete req.user._doc.password
     res.send(req.user)
   } else {
     res.send('Not logged in')
