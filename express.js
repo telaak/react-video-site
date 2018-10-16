@@ -14,7 +14,7 @@ mongoose.set('useCreateIndex', true)
 
 app.use(cors())
 app.use(express.json())
-app.use('/videos/', express.static('uploads'))
+app.use('/uploads/', express.static('uploads'))
 app.use(session({
   secret: 'seksiseppo',
   saveUninitialized: true,

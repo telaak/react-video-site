@@ -20,7 +20,7 @@ let upload = multer({
 })
 
 router.route('/videos')
-  .post(upload.single('video'), (req, res, next) => {
+  .post(upload.single('filepond'), (req, res, next) => {
     ffprobe(req.file.path, { path: ffprobeStatic.path }, function (err, info) {
       if (err) {
         return err
@@ -39,7 +39,7 @@ router.route('/videos')
           if (err) {
             res.send(err)
           } else {
-            res.send({ id: video.id })
+            res.send(video)
           }
         })
       }
@@ -94,6 +94,9 @@ router.route('/videos/:id')
   })
   .patch((req, res) => {
     if (Object.values(req.user.videos).includes(req.params.id) || req.user._doc.admin) {
+      delete req.body.path
+      delete req.body.fileName
+      delete req.body._id
       Video.updateOne({ '_id': req.params.id }, req.body, (err, raw) => {
         if (err) {
           res.send(err)
