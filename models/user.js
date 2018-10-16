@@ -16,9 +16,12 @@ UserSchema.methods.validPassword = async function (password) {
   return bcrypt.compare(password, this.passwordHash)
 }
 
-UserSchema.virtual('password').set(async function (value) {
-  let hash = await bcrypt.hashSync(value, 12)
-  this.passwordHash = hash
+UserSchema.virtual('password').set(function (value) {
+  this.passwordHash = value
+})
+
+UserSchema.pre('save', async function () {
+  await bcrypt.hash(this.passwordHash, 12)
 })
 
 const User = connection.model('User', UserSchema)
