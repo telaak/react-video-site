@@ -23,10 +23,6 @@ class FileUploader extends React.Component {
     this.handleRevert = this.handleRevert.bind(this)
   }
 
-  handleInit () {
-    console.log('FilePond instance has initialised', this.pond)
-  }
-
   handleRevert () {
     fetch('https://video.laaksonen.me/api/videos/' + this.state.id, {
       method: 'delete'
@@ -57,7 +53,6 @@ class FileUploader extends React.Component {
           server={{
             url: 'https://video.laaksonen.me/api/videos/'
           }}
-          oninit={() => this.handleInit()}
           onupdatefiles={fileItems => {
             this.setState({
               files: fileItems.map(fileItem => fileItem.file)
