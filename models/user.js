@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
-const connection = mongoose.createConnection('mongodb://localhost/user', { useNewUrlParser: true })
+const connection = mongoose.createConnection('mongodb://localhost/user', {
+  useNewUrlParser: true
+})
 const Schema = mongoose.Schema
 const uniqueValidator = require('mongoose-unique-validator')
 const bcrypt = require('bcrypt')
@@ -12,7 +14,7 @@ const UserSchema = new Schema({
 
 UserSchema.plugin(uniqueValidator)
 
-UserSchema.methods.validPassword = async function (password) {
+UserSchema.methods.validPassword = function (password) {
   return bcrypt.compare(password, this.password)
 }
 

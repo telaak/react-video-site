@@ -1,11 +1,14 @@
 const mongoose = require('mongoose')
-const connection = mongoose.createConnection('mongodb://localhost/video', { useNewUrlParser: true })
+const connection = mongoose.createConnection('mongodb://localhost/video', {
+  useNewUrlParser: true
+})
 const Schema = mongoose.Schema
 
 let VideoSchema = new Schema({
   title: String,
   fileName: String,
   path: String,
+  uploaderId: String,
   streams: [
     {
       index: Number,
