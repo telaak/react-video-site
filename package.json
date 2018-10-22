@@ -13,7 +13,7 @@
     "express-session": "^1.15.6",
     "ffprobe": "^1.1.0",
     "ffprobe-static": "^3.0.0",
-    "filepond": "^3.1.4",
+    "filepond": "^3.2.1",
     "filepond-plugin-file-validate-type": "^1.2.0",
     "filepond-plugin-image-exif-orientation": "^1.0.2",
     "filepond-plugin-image-preview": "^3.0.0",

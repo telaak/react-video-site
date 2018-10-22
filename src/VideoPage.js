@@ -3,21 +3,6 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { MDBDataTable } from 'mdbreact'
 
 class VideoPage extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      videos: []
-    }
-  }
-
-  componentDidMount () {
-    fetch('https://video.laaksonen.me/api/videos')
-      .then(response => response.json())
-      .then(json => {
-        this.setState({ videos: json })
-      })
-  }
-
   render () {
     return (
       <div>

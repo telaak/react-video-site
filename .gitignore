@@ -82,3 +82,6 @@ typings/
 
 # uploaded files
 /uploads
+
+# database
+/db

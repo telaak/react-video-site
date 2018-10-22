@@ -241,7 +241,7 @@ class App extends React.Component {
   Videos ({ match }) {
     return (
       <div>
-        <Route path={`${match.path}/:videoId`} component={withRouter(Video)} />
+        <Route path={`${match.path}/:videoId`} render={() => <Video videoList={this.state.videos} />} />
         <Route
           exact
           path={match.path}

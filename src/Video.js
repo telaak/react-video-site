@@ -8,25 +8,11 @@ class Video extends React.Component {
     }
   }
 
-  componentDidMount () {
-    if (!this.props.location.state) {
-      fetch(
-        'https://video.laaksonen.me/api/videos/' +
-          this.props.match.params.videoId
-      )
-        .then(response => response.json())
-        .then(json => {
-          this.setState({ video: json })
-        })
-    }
-  }
-
   render () {
     let entryPoint = null
-    if (this.props.location.state) {
-      entryPoint = this.props.location.state
-    } else if (this.state.video) {
-      entryPoint = this.state.video
+    if (this.props && this.props.videoList) {
+      let videoId = window.location.href.split('https://video.laaksonen.me/videos/')[1]
+      entryPoint = this.props.videoList.find(videoObject => videoObject._id === videoId)
     }
     if (entryPoint) {
       let index = 0
