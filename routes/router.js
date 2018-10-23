@@ -42,10 +42,24 @@ let upload = multer({
 router
   .route('/videos')
   .post(upload.single('filepond'), (req, res, next) => {
+    console.log('Received file: ' + req.file.originalname)
     ffprobe(req.file.path, { path: ffprobeStatic.path }, function (err, info) {
       if (err) {
+        console.log(err)
+        res.status(415).send()
+        fs.unlink('/var/www/react-video-site/' + req.file.path, error => {
+          if (error) console.log(error)
+        })
         return err
       } else {
+        if (!info.streams.find(stream => stream.codec_type === 'video')) {
+          console.log('no video stream in ' + req.file.originalname)
+          fs.unlink('/var/www/react-video-site/' + req.file.path, error => {
+            if (error) console.log(error)
+          })
+          res.status(415).send()
+          return
+        }
         let video = new Video({
           title: req.body.title,
           fileName: req.file.originalname,
@@ -92,7 +106,7 @@ router
     })
   })
   .delete((req, res) => {
-    console.log('Trying to delete from videos')
+    console.log('Trying to delete video id: ' + req.body)
     if (
       (req.session.videos && req.session.videos.includes(req.body)) ||
       (req.user &&
@@ -108,7 +122,7 @@ router
               res.send(err)
             } else {
               video.remove()
-              User.update({}, { $pull: { videos: req.body } }, (err, raw) => {
+              User.updateMany({}, { $pull: { videos: req.body } }, (err, raw) => {
                 if (err) {
                   console.log(err)
                 } else {
@@ -120,6 +134,7 @@ router
                   video => video !== req.body
                 )
               }
+              req.app.io.emit('videoDeleted', video)
               res.status(200).send('Deleted')
             }
           })

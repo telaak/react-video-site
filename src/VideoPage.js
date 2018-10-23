@@ -9,18 +9,19 @@ class VideoPage extends React.Component {
         <DatatablePage
           rows={this.props.videoList
             .map(video => {
+              let videoStreamIndex = video.streams.findIndex(stream => stream.codec_type === 'video')
               return {
-                fileName: video.fileName,
+                fileName: video.fileName.substr(0, 30),
                 link: (
                   <Link to={{ pathname: '/videos/' + video._id, state: video }}>
                     ▶
                   </Link>
                 ),
-                width: video.streams[0].width,
-                height: video.streams[0].height,
-                codec_name: video.streams[0].codec_name,
-                r_frame_rate: video.streams[0].r_frame_rate,
-                pix_fmt: video.streams[0].pix_fmt
+                width: video.streams[videoStreamIndex].width,
+                height: video.streams[videoStreamIndex].height,
+                codec_name: video.streams[videoStreamIndex].codec_name,
+                r_frame_rate: video.streams[videoStreamIndex].r_frame_rate,
+                pix_fmt: video.streams[videoStreamIndex].pix_fmt
               }
             })
             .reverse()}

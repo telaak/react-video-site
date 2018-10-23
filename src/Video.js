@@ -15,7 +15,7 @@ class Video extends React.Component {
       entryPoint = this.props.videoList.find(videoObject => videoObject._id === videoId)
     }
     if (entryPoint) {
-      let index = 0
+      let index = entryPoint.streams.findIndex(stream => stream.codec_type === 'video')
       return (
         <div
           style={{
