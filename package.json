@@ -8,6 +8,7 @@
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "crypto": "^1.0.1",
+    "delayed-scroll-restoration-polyfill": "^0.1.1",
     "express": "^4.16.4",
     "express-jwt": "^5.3.1",
     "express-session": "^1.15.6",

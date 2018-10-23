@@ -22,6 +22,7 @@ import FileUploader from './FileUploader.js'
 import VideoManager from './VideoManager.js'
 import VideoPage from './VideoPage.js'
 import openSocket from 'socket.io-client'
+import scroll from 'delayed-scroll-restoration-polyfill'
 
 class App extends React.Component {
   constructor (props) {
