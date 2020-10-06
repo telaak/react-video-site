@@ -2,9 +2,7 @@
 
 Video site built using React. Uses MongoDB and Express as a backend. View random videos, specific videos from the global list or upload your own. Video data is parsed automatically by ffprobe and added to MongoDB. Video data can be edited or deleted if it was uploaded under your account or during your session.
 
-https://video.laaksonen.me
-
-![Screenshot](https://laaksonen.me/react.png)
+![Screenshot](https://laaksonen.eu/react.png)
 
 ## Getting Started
 
